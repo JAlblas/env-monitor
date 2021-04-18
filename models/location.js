@@ -31,13 +31,7 @@ var LocationSchema = new Schema(
 BookInstanceSchema
 .virtual('url')
 .get(function () {
-  return '/catalog/observations/' + this._id;
-});
-
-BookInstanceSchema
-.virtual('due_back_formatted')
-.get(function () {
-  return DateTime.fromJSDate(this.due_back).toLocaleString(DateTime.DATE_MED);
+  return '/locations/' + this._id;
 });
 
 //Export model

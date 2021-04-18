@@ -15,7 +15,7 @@ var VolunteerSchema = new Schema(
 VolunteerSchema
 .virtual('url')
 .get(function () {
-  return '/catalog/volunteer/' + this._id;
+  return '/volunteers/' + this._id;
 });
 
 //Export model

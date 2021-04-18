@@ -25,7 +25,7 @@ AuthorSchema
 AuthorSchema
 .virtual('url')
 .get(function () {
-  return '/catalog/project/' + this._id;
+  return '/projects/' + this._id;
 });
 
 //Export model

@@ -9,11 +9,11 @@ if (!userArgs[0].startsWith('mongodb')) {
 }
 */
 var async = require('async')
-var Book = require('./models/book')
-var Author = require('./models/author')
-var Genre = require('./models/genre')
-var BookInstance = require('./models/bookinstance')
 
+var Event = require('./models/event')
+var Location = require('./models/location')
+var Project = require('./models/project')
+var Volunteer = require('./models/volunteers')
 
 var mongoose = require('mongoose');
 var mongoDB = userArgs[0];
@@ -22,10 +22,10 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-var authors = []
-var genres = []
-var books = []
-var bookinstances = []
+var events = []
+var locations = []
+var projects = []
+var volunteers = []
 
 function authorCreate(first_name, family_name, d_birth, d_death, cb) {
   authordetail = {first_name:first_name , family_name: family_name }
