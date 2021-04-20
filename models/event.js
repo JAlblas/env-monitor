@@ -7,7 +7,7 @@ var EventSchema = new Schema(
   {
     title: {type: String, required: true, maxlength: 100},
     description: {type: String},
-    projectDate: {type: Date},
+    eventDate: {type: Date},
     status: {type: String, required: true, enum: ['Planning', 'Underway', 'Done'], default: 'Planning'},
   }
 );

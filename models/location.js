@@ -28,7 +28,7 @@ var LocationSchema = new Schema(
 );
 
 // Virtual for bookinstance's URL
-BookInstanceSchema
+LocationSchema
 .virtual('url')
 .get(function () {
   return '/locations/' + this._id;

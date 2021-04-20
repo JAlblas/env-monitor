@@ -13,7 +13,7 @@ var async = require('async')
 var Event = require('./models/event')
 var Location = require('./models/location')
 var Project = require('./models/project')
-var Volunteer = require('./models/volunteers')
+var Volunteer = require('./models/volunteer')
 
 var mongoose = require('mongoose');
 var mongoDB = userArgs[0];
@@ -27,107 +27,105 @@ var locations = []
 var projects = []
 var volunteers = []
 
-function authorCreate(first_name, family_name, d_birth, d_death, cb) {
-  authordetail = {first_name:first_name , family_name: family_name }
-  if (d_birth != false) authordetail.date_of_birth = d_birth
-  if (d_death != false) authordetail.date_of_death = d_death
+function eventCreate(title, description, eventDate, status, cb) {
+  eventDetail = {title: title , description: description, eventDate: eventDate, status: status };
   
-  var author = new Author(authordetail);
+  var event = new Event(eventDetail);
        
-  author.save(function (err) {
+  event.save(function (err) {
     if (err) {
       cb(err, null)
       return
     }
-    console.log('New Author: ' + author);
-    authors.push(author)
-    cb(null, author)
+    console.log('New event: ' + event);
+    events.push(event)
+    cb(null, event)
   }  );
 }
 
-function genreCreate(name, cb) {
-  var genre = new Genre({ name: name });
+function locationCreate(date, location, image, cb) {
+  var location = new Location({ date: date, location: location, image: image });
        
-  genre.save(function (err) {
+  location.save(function (err) {
     if (err) {
       cb(err, null);
       return;
     }
-    console.log('New Genre: ' + genre);
-    genres.push(genre)
-    cb(null, genre);
+    console.log('New location: ' + location);
+    locations.push(location)
+    cb(null, location);
   }   );
 }
 
-function bookCreate(title, summary, isbn, author, genre, cb) {
-  bookdetail = { 
-    title: title,
-    summary: summary,
-    author: author,
-    isbn: isbn
+function projectCreate(name, description, city, createdDate, cb) {
+  projectDetail = { 
+    name: name,
+    description: description,
+    city: city,
+    createdDate: createdDate
   }
-  if (genre != false) bookdetail.genre = genre
-    
-  var book = new Book(bookdetail);    
-  book.save(function (err) {
+
+  var project = new Project(projectDetail);    
+  project.save(function (err) {
     if (err) {
       cb(err, null)
       return
     }
-    console.log('New Book: ' + book);
-    books.push(book)
-    cb(null, book)
+    console.log('New project: ' + project);
+    projects.push(project)
+    cb(null, project)
   }  );
 }
 
 
-function bookInstanceCreate(book, imprint, due_back, status, cb) {
-  bookinstancedetail = { 
-    book: book,
-    imprint: imprint
+function volunteerCreate(name, avatar, description, age, cb) {
+  volunteerDetail = { 
+    name: name,
+    avatar: avatar,
+    description: description,
+    age: age
   }    
-  if (due_back != false) bookinstancedetail.due_back = due_back
-  if (status != false) bookinstancedetail.status = status
     
-  var bookinstance = new BookInstance(bookinstancedetail);    
-  bookinstance.save(function (err) {
+  var volunteer = new Volunteer(volunteerDetail);    
+  volunteer.save(function (err) {
     if (err) {
-      console.log('ERROR CREATING BookInstance: ' + bookinstance);
+      console.log('ERROR CREATING volunteer: ' + volunteer);
       cb(err, null)
       return
     }
-    console.log('New BookInstance: ' + bookinstance);
-    bookinstances.push(bookinstance)
-    cb(null, book)
+    console.log('New volunteer: ' + volunteer);
+    volunteers.push(volunteer)
+    cb(null, volunteer)
   }  );
 }
 
 
-function createGenreAuthors(cb) {
+function createEvents(cb) {
+  // eventCreate(title, description, projectDate, status
     async.series([
         function(callback) {
-          authorCreate('Patrick', 'Rothfuss', '1973-06-06', false, callback);
+          eventCreate("title", "description", Date(), "Done", callback);
         },
         function(callback) {
-          authorCreate('Ben', 'Bova', '1932-11-8', false, callback);
+          eventCreate("title", "description", Date(), "Done", callback);
         },
         function(callback) {
-          authorCreate('Isaac', 'Asimov', '1920-01-02', '1992-04-06', callback);
+          eventCreate("title", "description",  Date(), "Done", callback);
         },
         function(callback) {
-          authorCreate('Bob', 'Billings', false, false, callback);
+          eventCreate("title", "description",  Date(), "Done", callback);
         },
         function(callback) {
-          authorCreate('Jim', 'Jones', '1971-12-16', false, callback);
+          eventCreate("title", "description",  Date(), "Done", callback);
         },
         function(callback) {
-          genreCreate("Fantasy", callback);
+          eventCreate("title", "description",  Date(), "Done", callback);
         },
         function(callback) {
-          genreCreate("Science Fiction", callback);
+          eventCreate("title", "description",  Date(), "Done", callback);
         },
         function(callback) {
-          genreCreate("French Poetry", callback);
+          eventCreate("title", "description",  Date(), "Done", callback);
         },
         ],
         // optional callback
@@ -135,81 +133,143 @@ function createGenreAuthors(cb) {
 }
 
 
-function createBooks(cb) {
+function createLocations(cb) {
     async.parallel([
         function(callback) {
-          bookCreate('The Name of the Wind (The Kingkiller Chronicle, #1)', 'I have stolen princesses back from sleeping barrow kings. I burned down the town of Trebon. I have spent the night with Felurian and left with both my sanity and my life. I was expelled from the University at a younger age than most people are allowed in. I tread paths by moonlight that others fear to speak of during day. I have talked to Gods, loved women, and written songs that make the minstrels weep.', '9781473211896', authors[0], [genres[0],], callback);
+          locationCreate(Date(), {
+            type: "Point",
+            coordinates: 
+              [50, 40]}, null, callback);
         },
         function(callback) {
-          bookCreate("The Wise Man's Fear (The Kingkiller Chronicle, #2)", 'Picking up the tale of Kvothe Kingkiller once again, we follow him into exile, into political intrigue, courtship, adventure, love and magic... and further along the path that has turned Kvothe, the mightiest magician of his age, a legend in his own time, into Kote, the unassuming pub landlord.', '9788401352836', authors[0], [genres[0],], callback);
+          locationCreate(Date(), {
+            type: "Point",
+            coordinates: 
+              [50, 40]}, null, callback);
         },
         function(callback) {
-          bookCreate("The Slow Regard of Silent Things (Kingkiller Chronicle)", 'Deep below the University, there is a dark place. Few people know of it: a broken web of ancient passageways and abandoned rooms. A young woman lives there, tucked among the sprawling tunnels of the Underthing, snug in the heart of this forgotten place.', '9780756411336', authors[0], [genres[0],], callback);
+          locationCreate(Date(), {
+            type: "Point",
+            coordinates: 
+              [50, 40]}, null, callback);
         },
         function(callback) {
-          bookCreate("Apes and Angels", "Humankind headed out to the stars not for conquest, nor exploration, nor even for curiosity. Humans went to the stars in a desperate crusade to save intelligent life wherever they found it. A wave of death is spreading through the Milky Way galaxy, an expanding sphere of lethal gamma ...", '9780765379528', authors[1], [genres[1],], callback);
+          locationCreate(Date(), {
+            type: "Point",
+            coordinates: 
+              [50, 40]}, null, callback);
         },
         function(callback) {
-          bookCreate("Death Wave","In Ben Bova's previous novel New Earth, Jordan Kell led the first human mission beyond the solar system. They discovered the ruins of an ancient alien civilization. But one alien AI survived, and it revealed to Jordan Kell that an explosion in the black hole at the heart of the Milky Way galaxy has created a wave of deadly radiation, expanding out from the core toward Earth. Unless the human race acts to save itself, all life on Earth will be wiped out...", '9780765379504', authors[1], [genres[1],], callback);
+          locationCreate(Date(), {
+            type: "Point",
+            coordinates: 
+              [50, 40]}, null, callback);
         },
         function(callback) {
-          bookCreate('Test Book 1', 'Summary of test book 1', 'ISBN111111', authors[4], [genres[0],genres[1]], callback);
+          locationCreate(Date(), {
+            type: "Point",
+            coordinates: 
+              [50, 40]}, null, callback);
         },
         function(callback) {
-          bookCreate('Test Book 2', 'Summary of test book 2', 'ISBN222222', authors[4], false, callback)
-        }
+          locationCreate(Date(), {
+            type: "Point",
+            coordinates: 
+              [50, 40]}, null, callback);
+        },
         ],
         // optional callback
         cb);
 }
 
 
-function createBookInstances(cb) {
+function createProjects(cb) {
     async.parallel([
         function(callback) {
-          bookInstanceCreate(books[0], 'London Gollancz, 2014.', false, 'Available', callback)
+          projectCreate("name", "description", "city", Date(), callback)
         },
         function(callback) {
-          bookInstanceCreate(books[1], ' Gollancz, 2011.', false, 'Loaned', callback)
+          projectCreate("name", "description", "city", Date(), callback)
         },
         function(callback) {
-          bookInstanceCreate(books[2], ' Gollancz, 2015.', false, false, callback)
+          projectCreate("name", "description", "city", Date(), callback)
         },
         function(callback) {
-          bookInstanceCreate(books[3], 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
+          projectCreate("name", "description", "city", Date(), callback)
         },
         function(callback) {
-          bookInstanceCreate(books[3], 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
+          projectCreate("name", "description", "city", Date(), callback)
         },
         function(callback) {
-          bookInstanceCreate(books[3], 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
+          projectCreate("name", "description", "city", Date(), callback)
         },
         function(callback) {
-          bookInstanceCreate(books[4], 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Available', callback)
+          projectCreate("name", "description", "city", Date(), callback)
         },
         function(callback) {
-          bookInstanceCreate(books[4], 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Maintenance', callback)
+          projectCreate("name", "description", "city", Date(), callback)
         },
         function(callback) {
-          bookInstanceCreate(books[4], 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Loaned', callback)
+          projectCreate("name", "description", "city", Date(), callback)
         },
         function(callback) {
-          bookInstanceCreate(books[0], 'Imprint XXX2', false, false, callback)
+          projectCreate("name", "description", "city", Date(), callback)
         },
         function(callback) {
-          bookInstanceCreate(books[1], 'Imprint XXX3', false, false, callback)
-        }
+          projectCreate("name", "description", "city", Date()
+          , callback)
+        },
         ],
         // Optional callback
         cb);
 }
 
 
+function createVolunteers(cb) {
+  async.parallel([
+      function(callback) {
+        volunteerCreate("name", "avatar", "description", 21, callback)
+      },
+      function(callback) {
+        volunteerCreate("name", "avatar", "description", 21, callback)
+      },
+      function(callback) {
+        volunteerCreate("name", "avatar", "description", 21, callback)
+      },
+      function(callback) {
+        volunteerCreate("name", "avatar", "description", 21, callback)
+      },
+      function(callback) {
+        volunteerCreate("name", "avatar", "description", 21, callback)
+      },
+      function(callback) {
+        volunteerCreate("name", "avatar", "description", 21, callback)
+      },
+      function(callback) {
+        volunteerCreate("name", "avatar", "description", 21, callback)
+      },
+      function(callback) {
+        volunteerCreate("name", "avatar", "description", 21, callback)
+      },
+      function(callback) {
+        volunteerCreate("name", "avatar", "description", 21, callback)
+      },
+      function(callback) {
+        volunteerCreate("name", "avatar", "description", 21, callback)
+      },
+      function(callback) {
+        volunteerCreate("name", "avatar", "description", 21, callback)
+      },
+      ],
+      // Optional callback
+      cb);
+}
 
 async.series([
-    createGenreAuthors,
-    createBooks,
-    createBookInstances
+    createEvents,
+    createLocations,
+    createProjects,
+    createVolunteers
 ],
 // Optional callback
 function(err, results) {
@@ -217,7 +277,7 @@ function(err, results) {
         console.log('FINAL ERR: '+err);
     }
     else {
-        console.log('BOOKInstances: '+bookinstances);
+        console.log('Events: '+ events);
         
     }
     // All done, disconnect from database
