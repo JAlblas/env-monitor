@@ -8,7 +8,11 @@ var project_controller = require('../controllers/projectController');
 //var book_instance_controller = require('../controllers/bookinstanceController');
 
 
+// PROJECT ROUTES
 router.get('/', project_controller.project_list);
+
+router.get('/:id', project_controller.project_details);
+
 
 /// BOOK ROUTES ///
 /*
