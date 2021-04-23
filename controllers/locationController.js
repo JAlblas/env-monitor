@@ -1,0 +1,1 @@
+var Locations = require('../models/locations');

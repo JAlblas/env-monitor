@@ -1,9 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+var volunteerController = require('../controllers/volunteerController');
+//var author_controller = require('../controllers/authorController');
+//var genre_controller = require('../controllers/genreController');
+//var book_instance_controller = require('../controllers/bookinstanceController');
+
+
+// PROJECT ROUTES
+router.get('/', volunteerController.volunteer_list);
+
 
 module.exports = router;
