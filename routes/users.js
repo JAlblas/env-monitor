@@ -10,5 +10,6 @@ var volunteerController = require('../controllers/volunteerController');
 // PROJECT ROUTES
 router.get('/', volunteerController.volunteer_list);
 
+router.get('/:id', volunteerController.volunteer_detail);
 
 module.exports = router;

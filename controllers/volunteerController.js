@@ -12,3 +12,19 @@ exports.volunteer_list = function(req, res, next) {
   
 };
 
+exports.volunteer_detail = function(req, res, next) {
+
+    Volunteer.findById(req.params.id)
+    .exec(function (err, volunteer) {
+      if (err) { return next(err); }
+      if (volunteer==null) { // No results.
+          var err = new Error('Volunteer not found');
+          err.status = 404;
+          return next(err);
+        }
+      // Successful, so render.
+      res.render('volunteer_detail', { title: 'Volunteer: ' +volunteer.name, volunteer:  volunteer});
+    })
+  
+};
+
