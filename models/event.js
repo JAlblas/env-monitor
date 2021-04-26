@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var EventSchema = new Schema(
   {
-    title: {type: String, required: true, maxlength: 100},
+    name: {type: String, required: true, maxlength: 100},
     description: {type: String},
     eventDate: {type: Date},
     status: {type: String, required: true, enum: ['Planning', 'Underway', 'Done'], default: 'Planning'},

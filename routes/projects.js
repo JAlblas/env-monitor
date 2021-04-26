@@ -3,10 +3,6 @@ var router = express.Router();
 
 // Require controller modules.
 var project_controller = require('../controllers/projectController');
-//var author_controller = require('../controllers/authorController');
-//var genre_controller = require('../controllers/genreController');
-//var book_instance_controller = require('../controllers/bookinstanceController');
-
 
 // PROJECT ROUTES
 router.get('/', project_controller.project_list);

@@ -27,8 +27,8 @@ var locations = []
 var projects = []
 var volunteers = []
 
-function eventCreate(title, description, eventDate, status, cb) {
-  eventDetail = {title: title , description: description, eventDate: eventDate, status: status };
+function eventCreate(name, description, eventDate, status, cb) {
+  eventDetail = {name: name , description: description, eventDate: eventDate, status: status };
   
   var event = new Event(eventDetail);
        

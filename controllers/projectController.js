@@ -12,7 +12,6 @@ exports.project_list = function(req, res, next) {
   
 };
 
-
 exports.project_details = function(req, res, next) {
 
     Project.findById(req.params.id)

@@ -12,7 +12,7 @@ exports.volunteer_list = function(req, res, next) {
   
 };
 
-exports.volunteer_detail = function(req, res, next) {
+exports.volunteer_details = function(req, res, next) {
 
     Volunteer.findById(req.params.id)
     .exec(function (err, volunteer) {
