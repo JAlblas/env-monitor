@@ -9,6 +9,7 @@ var EventSchema = new Schema(
     description: {type: String},
     eventDate: {type: Date},
     status: {type: String, required: true, enum: ['Planning', 'Underway', 'Done'], default: 'Planning'},
+    project: { type: Schema.Types.ObjectId, ref: 'Project', required: true }
   }
 );
 
