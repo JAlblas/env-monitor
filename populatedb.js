@@ -28,7 +28,7 @@ var locations = []
 var projects = []
 var volunteers = []
 
-function eventCreate(name, description, eventDate, status, cb) {
+function eventCreate(name, description, eventDate, status, project, cb) {
   eventDetail = {name: name , description: description, eventDate: eventDate, status: status, project: project };
   
   var event = new Event(eventDetail);
@@ -106,34 +106,34 @@ function createEvents(cb) {
   // eventCreate(title, description, projectDate, status
     async.series([
         function(callback) {
-          eventCreate("title", "description", Date(), "Done", callback);
+          eventCreate("title", "description", Date(), "Done", projects[0], callback);
         },
         function(callback) {
-          eventCreate("title", "description", Date(), "Done", callback);
+          eventCreate("title", "description", Date(), "Done", projects[1], callback);
         },
         function(callback) {
-          eventCreate("title", "description",  Date(), "Done", callback);
+          eventCreate("title", "description",  Date(), "Done", projects[2], callback);
         },
         function(callback) {
-          eventCreate("title", "description",  Date(), "Done", callback);
+          eventCreate("title", "description",  Date(), "Done", projects[3], callback);
         },
         function(callback) {
-          eventCreate("title", "description",  Date(), "Done", callback);
+          eventCreate("title", "description",  Date(), "Done", projects[4], callback);
         },
         function(callback) {
-          eventCreate("title", "description",  Date(), "Done", callback);
+          eventCreate("title", "description",  Date(), "Done", projects[5], callback);
         },
         function(callback) {
-          eventCreate("title", "description",  Date(), "Done", callback);
+          eventCreate("title", "description",  Date(), "Done", projects[6], callback);
         },
         function(callback) {
-          eventCreate("title", "description",  Date(), "Done", callback);
+          eventCreate("title", "description",  Date(), "Done", projects[7], callback);
         },
         function(callback) {
-          eventCreate("title", "description",  Date(), "Done", callback);
+          eventCreate("title", "description",  Date(), "Done", projects[8], callback);
         },
         function(callback) {
-          eventCreate("title", "description",  Date(), "Done", callback);
+          eventCreate("title", "description",  Date(), "Done", projects[9], callback);
         }
         ],
         // optional callback
@@ -147,61 +147,101 @@ function createLocations(cb) {
           locationCreate(Date(), {
             type: "Point",
             coordinates: 
-              [50, 40]}, null, callback);
+              [50, 40]
+            }, 
+            null, 
+            events[0], 
+            callback);
         },
         function(callback) {
           locationCreate(Date(), {
             type: "Point",
             coordinates: 
-              [50, 40]}, null, callback);
+              [50, 40]
+            }, 
+            null, 
+            events[1], 
+            callback);
         },
         function(callback) {
           locationCreate(Date(), {
             type: "Point",
             coordinates: 
-              [50, 40]}, null, callback);
+              [50, 40]
+            }, 
+            null, 
+            events[2], 
+            callback);
         },
         function(callback) {
           locationCreate(Date(), {
             type: "Point",
             coordinates: 
-              [50, 40]}, null, callback);
+              [50, 40]
+            }, 
+            null, 
+            events[3], 
+            callback);
         },
         function(callback) {
           locationCreate(Date(), {
             type: "Point",
             coordinates: 
-              [50, 40]}, null, callback);
+              [50, 40]
+            }, 
+            null, 
+            events[4], 
+            callback);
         },
         function(callback) {
           locationCreate(Date(), {
             type: "Point",
             coordinates: 
-              [50, 40]}, null, callback);
+              [50, 40]
+            }, 
+            null, 
+            events[5], 
+            callback);
         },
         function(callback) {
           locationCreate(Date(), {
             type: "Point",
             coordinates: 
-              [50, 40]}, null, callback);
+              [50, 40]
+            }, 
+            null, 
+            events[6], 
+            callback);
         },
         function(callback) {
           locationCreate(Date(), {
             type: "Point",
             coordinates: 
-              [50, 40]}, null, callback);
+              [50, 40]
+            }, 
+            null, 
+            events[7], 
+            callback);
         },
         function(callback) {
           locationCreate(Date(), {
             type: "Point",
             coordinates: 
-              [50, 40]}, null, callback);
+              [50, 40]
+            }, 
+            null, 
+            events[8], 
+            callback);
         },
         function(callback) {
           locationCreate(Date(), {
             type: "Point",
             coordinates: 
-              [50, 40]}, null, callback);
+              [50, 40]
+            }, 
+            null, 
+            events[9], 
+            callback);
         },
         ],
         // optional callback
@@ -212,34 +252,34 @@ function createLocations(cb) {
 function createProjects(cb) {
     async.parallel([
         function(callback) {
-          projectCreate("name", "description", "city", Date(), callback)
+          projectCreate("name", "description", "city", Date(), volunteers, callback)
         },
         function(callback) {
-          projectCreate("name", "description", "city", Date(), callback)
+          projectCreate("name", "description", "city", Date(), volunteers, callback)
         },
         function(callback) {
-          projectCreate("name", "description", "city", Date(), callback)
+          projectCreate("name", "description", "city", Date(), volunteers, callback)
         },
         function(callback) {
-          projectCreate("name", "description", "city", Date(), callback)
+          projectCreate("name", "description", "city", Date(), volunteers, callback)
         },
         function(callback) {
-          projectCreate("name", "description", "city", Date(), callback)
+          projectCreate("name", "description", "city", Date(), volunteers, callback)
         },
         function(callback) {
-          projectCreate("name", "description", "city", Date(), callback)
+          projectCreate("name", "description", "city", Date(), volunteers, callback)
         },
         function(callback) {
-          projectCreate("name", "description", "city", Date(), callback)
+          projectCreate("name", "description", "city", Date(), volunteers, callback)
         },
         function(callback) {
-          projectCreate("name", "description", "city", Date(), callback)
+          projectCreate("name", "description", "city", Date(), volunteers, callback)
         },
         function(callback) {
-          projectCreate("name", "description", "city", Date(), callback)
+          projectCreate("name", "description", "city", Date(), volunteers, callback)
         },
         function(callback) {
-          projectCreate("name", "description", "city", Date(), callback)
+          projectCreate("name", "description", "city", Date(), volunteers, callback)
         }
         ],
         // Optional callback
@@ -250,7 +290,7 @@ function createProjects(cb) {
 function createVolunteers(cb) {
   async.parallel([
       function(callback) {
-        volunteerCreate("name", "avatar", "description", 21, callback)
+        volunteerCreate("jasper", "avatar", "me", 21, callback)
       },
       function(callback) {
         volunteerCreate("name", "avatar", "description", 21, callback)
@@ -265,7 +305,7 @@ function createVolunteers(cb) {
         volunteerCreate("name", "avatar", "description", 21, callback)
       },
       function(callback) {
-        volunteerCreate("name", "avatar", "description", 21, callback)
+        volunteerCreate("theresa", "avatar", "hehe", 56, callback)
       },
       function(callback) {
         volunteerCreate("name", "avatar", "description", 21, callback)
