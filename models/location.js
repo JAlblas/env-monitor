@@ -23,7 +23,8 @@ var LocationSchema = new Schema(
     {
         data: Buffer,
         contentType: String
-    }
+    },
+    event: { type: Schema.Types.ObjectId, ref: 'Event', required: true }
   }
 );
 

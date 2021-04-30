@@ -8,7 +8,13 @@ var ProjectSchema = new Schema(
     name: {type: String, required: true, maxlength: 100},
     description: {type: String, required: true},
     city: {type: String, required: true},
-    createdDate: {type: Date, default: Date.now}
+    createdDate: {type: Date, default: Date.now},
+    volunteers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Volunteer"
+      }
+    ]
   }
 );
 

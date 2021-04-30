@@ -16,6 +16,7 @@ var Project = require('./models/project')
 var Volunteer = require('./models/volunteer')
 
 var mongoose = require('mongoose');
+const project = require('./models/project');
 var mongoDB = userArgs[0];
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.Promise = global.Promise;
@@ -28,7 +29,7 @@ var projects = []
 var volunteers = []
 
 function eventCreate(name, description, eventDate, status, cb) {
-  eventDetail = {name: name , description: description, eventDate: eventDate, status: status };
+  eventDetail = {name: name , description: description, eventDate: eventDate, status: status, project: project };
   
   var event = new Event(eventDetail);
        
@@ -43,8 +44,8 @@ function eventCreate(name, description, eventDate, status, cb) {
   }  );
 }
 
-function locationCreate(date, location, image, cb) {
-  var location = new Location({ date: date, location: location, image: image });
+function locationCreate(date, location, image, event, cb) {
+  var location = new Location({ date: date, location: location, image: image, event: event });
        
   location.save(function (err) {
     if (err) {
@@ -57,12 +58,13 @@ function locationCreate(date, location, image, cb) {
   }   );
 }
 
-function projectCreate(name, description, city, createdDate, cb) {
+function projectCreate(name, description, city, createdDate, volunteers, cb) {
   projectDetail = { 
     name: name,
     description: description,
     city: city,
-    createdDate: createdDate
+    createdDate: createdDate,
+    volunteers: volunteers
   }
 
   var project = new Project(projectDetail);    
@@ -127,6 +129,12 @@ function createEvents(cb) {
         function(callback) {
           eventCreate("title", "description",  Date(), "Done", callback);
         },
+        function(callback) {
+          eventCreate("title", "description",  Date(), "Done", callback);
+        },
+        function(callback) {
+          eventCreate("title", "description",  Date(), "Done", callback);
+        }
         ],
         // optional callback
         cb);
@@ -135,6 +143,24 @@ function createEvents(cb) {
 
 function createLocations(cb) {
     async.parallel([
+        function(callback) {
+          locationCreate(Date(), {
+            type: "Point",
+            coordinates: 
+              [50, 40]}, null, callback);
+        },
+        function(callback) {
+          locationCreate(Date(), {
+            type: "Point",
+            coordinates: 
+              [50, 40]}, null, callback);
+        },
+        function(callback) {
+          locationCreate(Date(), {
+            type: "Point",
+            coordinates: 
+              [50, 40]}, null, callback);
+        },
         function(callback) {
           locationCreate(Date(), {
             type: "Point",
@@ -214,11 +240,7 @@ function createProjects(cb) {
         },
         function(callback) {
           projectCreate("name", "description", "city", Date(), callback)
-        },
-        function(callback) {
-          projectCreate("name", "description", "city", Date()
-          , callback)
-        },
+        }
         ],
         // Optional callback
         cb);
@@ -256,20 +278,17 @@ function createVolunteers(cb) {
       },
       function(callback) {
         volunteerCreate("name", "avatar", "description", 21, callback)
-      },
-      function(callback) {
-        volunteerCreate("name", "avatar", "description", 21, callback)
-      },
+      }
       ],
       // Optional callback
       cb);
 }
 
 async.series([
+    createVolunteers,
+    createProjects,
     createEvents,
     createLocations,
-    createProjects,
-    createVolunteers
 ],
 // Optional callback
 function(err, results) {
