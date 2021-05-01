@@ -6,6 +6,16 @@ a {
   color: #00B7FF;
 }
 
+.project {
+  margin-bottom: 25px;
+  background-color: rgb(7, 57, 133);
+  list-style: none;
+}
+
+.container ul {
+  padding-left: 0;
+}
+
 #map {
   width: 100%;
   height: 400px;

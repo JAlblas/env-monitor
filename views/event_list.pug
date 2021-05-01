@@ -5,9 +5,10 @@ block content
 
   ul
     each event in event_list
-      li
+      li.project
         a(href=event.url) #{event.name}
-        |  (#{event.description})
+        br
+        a(href=event.project.url) (Part of project: #{event.project.name})
 
     else
       li There are no events.

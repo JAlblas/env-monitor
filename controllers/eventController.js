@@ -4,6 +4,7 @@ exports.event_ist = function(req, res, next) {
 
     Event.find()
       .sort([['name', 'ascending']])
+      .populate('project')
       .exec(function (err, list_events) {
         if (err) { return next(err); }
         //Successful, so render
