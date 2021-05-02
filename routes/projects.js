@@ -9,20 +9,25 @@ router.get('/', project_controller.project_list);
 
 router.get('/:id', project_controller.project_details);
 
+// GET request for creating a Book. NOTE This must come before routes that display Book (uses id).
+router.get('/create', project_controller.project_create_get);
 
-/// BOOK ROUTES ///
+// POST request for creating Book.
+router.post('/create', project_controller.project_create_post);
+
+
+
+
+
+
+
+
+
 /*
-// GET catalog home page.
-
-
 
 router.get('/', book_controller.index);
 
-// GET request for creating a Book. NOTE This must come before routes that display Book (uses id).
-router.get('/book/create', book_controller.book_create_get);
 
-// POST request for creating Book.
-router.post('/book/create', book_controller.book_create_post);
 
 // GET request to delete Book.
 router.get('/book/:id/delete', book_controller.book_delete_get);

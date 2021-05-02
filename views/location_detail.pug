@@ -10,7 +10,6 @@ block content
 
 
   script(type='text/javascript').
-
     var map = new ol.Map({
       target: 'map',
       layers: [
@@ -22,4 +21,7 @@ block content
         center: ol.proj.fromLonLat(!{JSON.stringify(location.location.coordinates)}),
         zoom: 4
       })
+
+
+
     });

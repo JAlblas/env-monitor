@@ -10,6 +10,7 @@ a {
   margin-bottom: 25px;
   background-color: rgb(7, 57, 133);
   list-style: none;
+  display: block;
 }
 
 .container ul {
