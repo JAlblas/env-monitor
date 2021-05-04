@@ -7,7 +7,7 @@ var project_controller = require('../controllers/projectController');
 // PROJECT ROUTES
 router.get('/', project_controller.project_list);
 
-router.get('/details/:id', project_controller.project_details);
+router.get('/:id', project_controller.project_details);
 
 // GET request for creating a Book. NOTE This must come before routes that display Book (uses id).
 router.get('/create', project_controller.project_create_get);
@@ -15,6 +15,11 @@ router.get('/create', project_controller.project_create_get);
 // POST request for creating Book.
 router.post('/create', project_controller.project_create_post);
 
+// GET request to delete Book.
+router.get('/:id/delete', project_controller.project_delete_get);
+
+// POST request to delete Book.
+router.post('/:id/delete', project_controller.project_delete_post);
 
 
 

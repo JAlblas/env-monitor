@@ -114,3 +114,39 @@ exports.project_create_post = [
       }
   }
 ];
+
+// Display project delete form on GET.
+exports.project_delete_get = function(req, res, next) {
+  Project.findById(req.params.id)
+    .exec(function (err, project) {
+      if (err) { return next(err); }
+      if (project==null) { // No results.
+          var err = new Error('Project not found');
+          err.status = 404;
+          return next(err);
+        }
+      // Successful, so render.
+      res.render('project_delete', { title: 'Delete Project', project:  project});
+    })
+};
+
+// Display project delete form on POST.
+exports.project_delete_post = function(req, res, next) {
+  console.log(req.params.id);
+  Project.findById(req.params.id)
+  .exec(function (err, project) {
+    if (err) { return next(err); }
+    if (project==null) { // No results.
+        var err = new Error('Project not found');
+        err.status = 404;
+        return next(err);
+      } else {
+        // Author has no books. Delete object and redirect to the list of authors.
+        Project.findByIdAndRemove(req.params.id, function deleteProject(err) {
+          if (err) { return next(err); }
+          // Success - go to author list
+          res.redirect('/')
+        })
+      }
+  })
+};

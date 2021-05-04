@@ -3,6 +3,14 @@ body {
   background-color: #319ef7 !important;
 }
 
+.container {
+  max-width: 960px !important;
+}
+
+.container nav {
+  margin-bottom: 50px;
+}
+
 .container nav a{
   color: #000;
 }

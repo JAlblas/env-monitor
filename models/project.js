@@ -22,7 +22,7 @@ var ProjectSchema = new Schema(
 ProjectSchema
 .virtual('url')
 .get(function () {
-  return '/projects/details/' + this._id;
+  return '/projects/' + this._id;
 });
 
 //Export model
