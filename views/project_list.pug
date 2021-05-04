@@ -3,9 +3,14 @@ extends layout
 block content
   h1= title
 
+  a(href="/projects/create") Create new project
+
+  br
+  br
+
   ul
     each project in project_list
-      li
+      li.project
         a(href=project.url) #{project.name}
         |  (#{project.description})
 

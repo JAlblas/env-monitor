@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1= title
+
+  form(method='POST' action='')
+    div.form-group
+      label(for='name') Title:
+      input#title.form-control(type='text', placeholder='Name of project' name='name' required='true' value=(undefined===project ? '' : project.name) )
+    div.form-group
+      label(for='description') Summary:
+      textarea#summary.form-control(type='textarea', placeholder='Description' name='description' required='true') #{undefined===project ? '' : project.description}
+    div.form-group
+      label(for='city') City:
+      input#isbn.form-control(type='text', placeholder='city' name='city' value=(undefined===project ? '' : project.city) required='true')
+    div.form-group
+      label(for='createdDate') Date:
+      input#isbn.form-control(type='text', placeholder='createdDate' name='createdDate' value=(undefined===project ? '' : project.createdDate) required='true')
+    div.form-group
+      label Volunteers:
+      div
+        for volunteer in volunteers
+          div(style='display: inline; padding-right:10px;')
+            input.checkbox-input(type='checkbox', name='volunteer', id=volunteer._id, value=volunteer._id, volunteer=volunteer.checked )
+            label(for=volunteer._id) #{volunteer.name}
+    button.btn.btn-primary(type='submit') Submit
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

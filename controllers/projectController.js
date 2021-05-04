@@ -52,21 +52,21 @@ exports.project_create_get = function(req, res, next) {
 exports.project_create_post = [
   // Convert the genre to an array.
   (req, res, next) => {
-      if(!(req.body.genre instanceof Array)){
-          if(typeof req.body.genre ==='undefined')
-          req.body.genre = [];
+      if(!(req.body.volunteers instanceof Array)){
+          if(typeof req.body.volunteers ==='undefined')
+          req.body.volunteers = [];
           else
-          req.body.genre = new Array(req.body.genre);
+          req.body.volunteers = new Array(req.body.volunteers);
       }
       next();
   },
 
   // Validate and sanitise fields.
-  body('title', 'Title must not be empty.').trim().isLength({ min: 1 }).escape(),
-  body('author', 'Author must not be empty.').trim().isLength({ min: 1 }).escape(),
-  body('summary', 'Summary must not be empty.').trim().isLength({ min: 1 }).escape(),
-  body('isbn', 'ISBN must not be empty').trim().isLength({ min: 1 }).escape(),
-  body('genre.*').escape(),
+  body('name', 'Name must not be empty.').trim().isLength({ min: 1 }).escape(),
+  body('description', 'Description must not be empty.').trim().isLength({ min: 1 }).escape(),
+  body('city', 'City must not be empty.').trim().isLength({ min: 1 }).escape(),
+  body('createdDate', 'Date must not be empty').trim().isLength({ min: 1 }).escape(),
+  body('volunteer.*').escape(),
 
   // Process request after validation and sanitization.
   (req, res, next) => {
@@ -76,11 +76,11 @@ exports.project_create_post = [
 
       // Create a Book object with escaped and trimmed data.
       var project = new Project(
-        { title: req.body.title,
-          author: req.body.author,
-          summary: req.body.summary,
-          isbn: req.body.isbn,
-          genre: req.body.genre
+        { name: req.body.name,
+          description: req.body.description,
+          city: req.body.city,
+          createDate: req.body.createDate,
+          volunteers: req.body.volunteers
          });
 
       if (!errors.isEmpty()) {
@@ -95,12 +95,12 @@ exports.project_create_post = [
               if (err) { return next(err); }
 
               // Mark our selected genres as checked.
-              for (let i = 0; i < results.genres.length; i++) {
-                  if (book.genre.indexOf(results.genres[i]._id) > -1) {
-                      results.genres[i].checked='true';
+              for (let i = 0; i < results.volunteers.length; i++) {
+                  if (project.volunteers.indexOf(results.volunteers[i]._id) > -1) {
+                      results.volunteers[i].checked='true';
                   }
               }
-              res.render('project_form', { title: 'Create project', volunteers:results.volunteers, book: book, errors: errors.array() });
+              res.render('project_form', { title: 'Create project', volunteers:results.volunteers, project: project, errors: errors.array() });
           });
           return;
       }

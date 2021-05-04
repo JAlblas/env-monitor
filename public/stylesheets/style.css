@@ -1,16 +1,29 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #319ef7 !important;
 }
 
-a {
-  color: #00B7FF;
+.container nav a{
+  color: #000;
+}
+
+.container ul {
+  list-style: none;
 }
 
 .project {
-  margin-bottom: 25px;
-  background-color: rgb(7, 57, 133);
+  margin-bottom: 15px;
+  margin-top: 15px;
+  padding: 25px;
+  background-color: #FFF;
+  color: rgb(55, 135, 255);
   list-style: none;
   display: block;
+}
+
+.project a {
+  text-decoration: none;
+  color: #000;
 }
 
 .container ul {
@@ -20,4 +33,8 @@ a {
 #map {
   width: 100%;
   height: 400px;
+}
+
+footer li a {
+  color: white !important;
 }
